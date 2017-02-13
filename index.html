@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Toolbar</title>
+        <meta name="description" content="">
+
+        <style>
+            body {
+                position   : absolute;
+                width      : 100%;
+                height     : 100%;
+                margin     : 0;
+                padding    : 0;
+            }
+
+            .body-wrapper {
+                width      : calc(100% - 100px);
+                height     : calc(100% - 100px);
+                min-width  : 300px;
+                min-height : 300px;
+                margin     : 50px;
+            }
+
+            body.dark {
+                background : rgb(0,0,0);
+            }
+            body.dark .body-wrapper {
+                background : rgb(32,32,32);
+            }
+
+            body.bright {
+                background : rgb(255, 255, 255);
+            }
+            body.bright .body-wrapper {
+                background : rgb(223, 223, 223);
+            }
+        </style>
+
+        <script src="loader.js"></script>
+    </head>
+    <body class="bright">
+        <div class="body-wrapper"></div>
+    </body>
+</html>
