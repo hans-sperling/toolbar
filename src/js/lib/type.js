@@ -3,71 +3,22 @@
 
     // ------------------------------------------------------------------------------------------------------ Properties
 
-    var moduleName = 'type';
+    var toolName = 'type';
 
-    // ------------------------------------------------------------------------------------------------ Module interface
-
-    /**
-     * Initializes this module - will be called at the beginning from the app. Updates the module with the given config.
-     *
-     * @public
-     * @param  {Object} config
-     * @return {void}
-     */
-    function init(config) {
-        update(config);
-    }
-
+    // -------------------------------------------------------------------------------------------------- Tool interface
 
     /**
-     * Will be called from app if all other modules has been loaded.
-     *
-     * @public
-     * @return {void}
-     */
-    function run() {
-        // Nothing to do yet
-    }
-
-
-    /**
-     * Updates this module, will be called on init and on general updating the app.
-     *
-     * @public
-     * @param  {Object} config
-     * @return {void}
-     */
-    function update(config) {
-        // Nothing to do yet
-    }
-
-
-    /**
-     * Resets this module.
-     *
-     * @public
-     * @return {void}
-     */
-    function reset() {
-        // Nothing to do yet
-    }
-
-
-    /**
-     * Returns the public module api.
-     * Used to append this module to the app.
+     * Returns the public tool api.
+     * Used to append this tool to the app.
      *
      * @private
+     *
      * @returns {object}
      */
-    function getModuleApi() {
-        var moduleApi = {};
+    function getToolApi() {
+        var toolApi = {};
 
-        moduleApi[moduleName] = {
-            init        : init,
-            run         : run,
-            update      : update,
-            reset       : reset,
+        toolApi[toolName] = {
             isArray     : isArray,
             isBoolean   : isBoolean,
             isFunction  : isFunction,
@@ -78,7 +29,7 @@
             isUndefined : isUndefined
         };
 
-        return moduleApi;
+        return toolApi;
     }
 
     // --------------------------------------------------------------------------------------------------------- Methods
@@ -180,7 +131,7 @@
 
     // --------------------------------------------------------------------------------------------------------- Returns
 
-    // Append module with public methods and properties
-    app.appendModule(getModuleApi());
+    // Append tool with public methods and properties
+    app.appendTool(getToolApi());
 
 })(window[APPKEY]);

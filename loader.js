@@ -1,4 +1,4 @@
-var APPKEY = 'TOOLBAR';
+var APPKEY     = 'TOOLBAR';
 window[APPKEY] = {};
 
 /*! FileLoader - Async file loader - Version: 0.2.0 - https://github.com/hans-sperling/script-loader */
@@ -23,28 +23,12 @@ domReady(function() {
                     prefixPath + 'js/lib/merge.js',
                     prefixPath + 'js/lib/type.js',
 
-                    // Vendor
-                    //prefixPath + 'vendor/sidebar/css/sidebar-bright.css',
-                    //prefixPath + 'vendor/sidebar/css/sidebar-dark.css',
-                    //prefixPath + 'vendor/sidebar/css/sidebar-red.css',
-                    //prefixPath + 'vendor/sidebar/js/sidebar.js',
-                    //prefixPath + 'vendor/urlSplit/js/urlSplit.js',
-
-                    //prefixPath + 'vendor/sidebar_toggle/css/sidebar_toggle_bright.css',
-                    //prefixPath + 'vendor/sidebar_toggle/css/sidebar_toggle_dark.css',
-                    //prefixPath + 'vendor/sidebar_toggle/js/sidebar_toggle.js',
-
-                    //prefixPath + 'vendor/cookie/js/cookie.js',
-
-                    // Layout
-                    //prefixPath + 'css/p24ErrorLog.css',
-                    //prefixPath + 'css/p24DevTools.css',
-
                     // Module
                     prefixPath + 'js/modules/dummyModule.js'
                 ],
                 onAllLoaded  : function onAllLoaded() {
                     window[APPKEY].init();
+                    window[APPKEY].run();
                 },
                 onError      : function onError(file) {
                     console.warn('File <' + file + '> has not been loaded!');

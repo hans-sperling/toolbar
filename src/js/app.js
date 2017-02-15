@@ -1,14 +1,105 @@
-var Toolbar = (function () {
+window[APPKEY] = (function () {
     'use strict';
 
     // ------------------------------------------------------------------------------------------------------ Properties
 
-    var modules = {};
+    var modules = {},
+        tools   = {},
+        config  = {};
+
+    // ------------------------------------------------------------------------------------------------------------ Init
+
+    /**
+     * Initialize this app.
+     *
+     * @public
+     */
+    function init() {
+        initModules(config);
+    }
+
+
+    /**
+     * Starts running the application
+     *
+     * @public
+     */
+    function run() {
+        runModules();
+    }
+
+
+    /**
+     * Returns the application api.
+     *
+     * @private
+     *
+     * @returns {object}
+     */
+    function getApplicationApi() {
+        return {
+            init         : init,
+            run          : run,
+            appendTool   : appendTool,
+            getTool      : getTool,
+            tools        : tools,
+            appendModule : appendModule,
+            getModule    : getModule
+        };
+    }
+
+    // ----------------------------------------------------------------------------------------------------------- Tools
+
+    /**
+     * Appends a given tool object.
+     *
+     * @public
+     *
+     * @param   {Object} tool
+     * @returns {void}
+     */
+    function appendTool(tool) {
+        var id;
+
+        if ((!tool) || (typeof tool !== 'object')) {
+            console.error('Parameter <tool> is not a valid PerspectiveView tool :: ', '{' , typeof tool, '} :: ', tool);
+        }
+
+        for (id in tool) {
+            if (tool.hasOwnProperty(id) && tools.hasOwnProperty(id)) {
+                console.error('There already exists a tool named \'' + id + '\'');
+            }
+            else {
+                tools[id] = tool[id];
+            }
+        }
+    }
+
+
+    /**
+     * Returns a requested tool by the given id.
+     *
+     * @public
+     *
+     * @param   {String} id - ID of the requested tool
+     * @returns {Object}
+     */
+    function getTool(id) {
+        if (tool[id]) {
+            return tools[id];
+        }
+        else {
+            console.warn('The requested tool <' + id + '> does not exist!');
+            return null;
+        }
+    }
 
     // --------------------------------------------------------------------------------------------------------- Modules
 
     /**
      * Appends a given module object.
+     *
+     * @public
      *
      * @param   {Object} module
      * @returns {void}
@@ -32,6 +123,25 @@ var Toolbar = (function () {
 
 
     /**
+     * Returns a requested module by the given id.
+     *
+     * @public
+     *
+     * @param   {String} id - ID of the requested module
+     * @returns {Object}
+     */
+    function getModule(id) {
+        if (modules[id]) {
+            return modules[id];
+        }
+        else {
+            console.warn('The requested module <' + id + '> does not exist!');
+            return null;
+        }
+    }
+
+
+    /**
      * Initializes all appended modules. Will call all init methods of the appended modules with the given
      * configuration.
      *
@@ -39,11 +149,17 @@ var Toolbar = (function () {
      * @returns {void}
      */
     function initModules(config) {
-        var i;
-        for (i in modules) {
-            if (modules.hasOwnProperty(i)) {
-                if (typeof modules[i].init === 'function') {
-                    modules[i].init(config);
+        var moduleId;
+        
+        for (moduleId in modules) {
+            if (modules.hasOwnProperty(moduleId)) {
+                if (typeof modules[moduleId].init === 'function') {
+                    if (config.hasOwnProperty(moduleId) && config[moduleId] === 'object') {
+                        modules[moduleId].init(config[moduleId]);
+                    }
+                    else {
+                        modules[moduleId].init({});
+                    }
                 }
             }
         }
@@ -104,53 +220,7 @@ var Toolbar = (function () {
         }
     }
 
+    // --------------------------------------------------------------------------------------------------------- Returns
 
-    /**
-     * Returns all modules.
-     *
-     * @returns {Object}
-     */
-    function getModules() {
-        return modules;
-    }
-
-
-    /**
-     * Returns a requested module by the given id.
-     *
-     * @param   {String} id - ID of the requested module
-     * @returns {Object}
-     */
-    function getModule(id) {
-        if (modules[id]) {
-            return modules[id];
-        }
-        else {
-            console.warn('The requested module <' + id + '> does not exist!');
-            return null;
-        }
-    }
-
-    // ------------------------------------------------------------------------------------------------------------ Init
-
-    /**
-     * Initialize this app.
-     *
-     * @returns {void}
-     */
-    function init() {
-        initModules(modules.config);
-        runModules();
-    }
-
-    // ------------------------------------------------------------------------------------------------------- DEV return
-
-    return {
-        modules       : modules,
-        appendModule  : appendModule,
-        getModules    : getModules,
-        getModule     : getModule,
-        init          : init
-    };
-
+    return getApplicationApi();
 })();

@@ -40,7 +40,8 @@
      * @return {void}
      */
     function update(config) {
-        cfg = app.getModule('merge').deep(cfg, config[moduleName]);
+        console.log(app);
+        cfg = app.tools.merge.deep(cfg, config);
     }
 
 
