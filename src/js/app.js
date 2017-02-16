@@ -7,6 +7,16 @@ window[APPKEY] = (function () {
         tools   = {},
         config  = {};
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    function merge(objMaster, objSlave) {
+        return {};
+    }
+
+    function isString(vlaue) {
+        return true;
+    }
+
     // ------------------------------------------------------------------------------------------------------------ Init
 
     /**
@@ -38,13 +48,12 @@ window[APPKEY] = (function () {
      */
     function getApplicationApi() {
         return {
-            init         : init,
-            run          : run,
-            appendTool   : appendTool,
-            getTool      : getTool,
-            tools        : tools,
-            appendModule : appendModule,
-            getModule    : getModule
+            tools : {
+                merge    : merge,
+                isString : isString
+            },
+            appendModule : appendModule
+
         };
     }
 

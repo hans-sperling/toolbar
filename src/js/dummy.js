@@ -33,24 +33,32 @@ window[__APP_SCOPE__] = (function() {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+(function (appAppend) {
+    var toolId = 'typeCheck';
+
+    appAppend[toolId] = {
+        isString : function() { return true;}
+    };
+
+})(window[__APP_SCOPE__].tool);
+
+
+
 window[__APP_SCOPE__].tool.type = (function () {
-
-    function isString() {
-        return true;
-    }
-
     return {
-        isString: isString
+        isString : function() { return true;}
     };
 })();
 
 
 window[__APP_SCOPE__].tool.merge = (function () {
-    function deepMerge() {
+    function mergeObjects(masterObject, slaveObject) {
         return {};
     }
 
-    return deepMerge;
+    return {
+        objects : mergeObjects
+    };
 })();
 
 
@@ -71,6 +79,10 @@ function Toolbar() {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+function Toolbar() {
+
+    return window[__APP_SCOPE__];
+}
 
 // ---------------------------------------------------------------------------------------------------------------------
 
